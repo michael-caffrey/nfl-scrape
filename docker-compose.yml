@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  redis:
+    image: redislabs/rejson:2.2.0
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - redis:/bitname/redis/data
+  postgres:
+    image: postgres:13
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+volumes:
+  redis:
+  postgres:
