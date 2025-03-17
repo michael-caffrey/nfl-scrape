@@ -1,7 +1,7 @@
 from backend import db, app
 from backend.models import User
 
-from flask import request, g, jsonify
+from flask import request
 
 
 @app.post('/register')
