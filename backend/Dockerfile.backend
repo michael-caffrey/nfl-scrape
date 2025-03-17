@@ -1,0 +1,17 @@
+FROM python:3.12
+RUN pip install --upgrade pip
+
+RUN mkdir /backend
+
+COPY ./requirements.txt /requirements.txt
+
+RUN --mount=type=cache,target=/root/.cache \
+    pip install -r /requirements.txt
+
+RUN --mount=type=cache,target=/var/cache/apt  --mount=type=cache,target=/var/lib/apt apt-get update \
+    && apt-get install -y wget
+
+WORKDIR /
+EXPOSE 8080
+CMD python -m backend.initialize && \
+    flask --app backend run -h 0.0.0.0 -p 8080 --debug
